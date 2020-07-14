@@ -15,10 +15,14 @@ function describeData(rows, ppName, cvals, dict, scl) {
 
     var fmtDicts = []
     dict.forEach((item) => {
-        var fDic = "";
-        Object.keys(JSON.parse(item)).map((i, ind) => {
-            fDic += `<br>${i}: ${String(item[i])}`;
-        });
+        if (item != 'NA') {
+            var fDic = "";
+            item = item.replace(/\'/g, '"').replace(/\w"\w/g, '\\"'); // dumb inverted commas
+            item = JSON.parse(item);
+            Object.keys(item).map((i, ind) => {
+                fDic += `<br>${i}: ${item[i]}`;
+            });
+        }
 
         fmtDicts.push(fDic);
     });
